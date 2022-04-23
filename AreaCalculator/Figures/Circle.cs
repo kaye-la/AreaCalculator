@@ -17,17 +17,25 @@ namespace AreaCalculator.Figures
             Validate();
         }
 
+        /// <summary>
+        /// Calculate circle's area
+        /// </summary>
+        /// <returns>Circle's area</returns>
         protected override double CalculateArea()
         {
             return Math.PI * _radius * _radius;
         }
 
+        /// <summary>
+        /// Validate for negative & null
+        /// </summary>
+        /// <returns>True - if validation succeed. False - if not</returns>
         protected override bool Validate()
         {
             if (_radius < 0)
-                throw new ArgumentException("Argument can't be negative");
+                throw new ArgumentOutOfRangeException("Argument can't be negative");
             else if (_radius == 0)
-                throw new ArgumentException("Argument can't be negative");
+                throw new ArgumentOutOfRangeException("Argument can't be null");
             return true;
         }
     }

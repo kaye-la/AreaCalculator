@@ -21,8 +21,10 @@ namespace AreaCalculator.Figures
             _thirdSide = thirdSide;
 
             Validate();
-            _isRightTriangle = new Lazy<bool>(IsRightTriangle);
+            _isRightTriangle = new Lazy<bool>(CheckRightTriangle);
         }
+
+        public bool IsRightTriangle => _isRightTriangle.Value;
 
         /// <summary>
         /// Calculate area with Heron's formula
@@ -33,7 +35,7 @@ namespace AreaCalculator.Figures
             var halfPerimeter = (_firSide + _secSide + _thirdSide) / 2;
             var tempSide = (halfPerimeter - _firSide) * (halfPerimeter - _secSide) * (halfPerimeter - _thirdSide);
 
-            return halfPerimeter * tempSide;
+            return Math.Sqrt(halfPerimeter * tempSide);
         }
 
         /// <summary>
@@ -43,9 +45,9 @@ namespace AreaCalculator.Figures
         protected override sealed bool Validate()
         {
             if (_firSide < 0 || _secSide < 0 || _thirdSide < 0)
-                throw new ArgumentException("Argument can't be negative");
-            if (_firSide == 0 || _secSide == 0 || _thirdSide == 0)
-                throw new ArgumentException("Argument can't be null");
+                throw new ArgumentOutOfRangeException("Argument can't be negative");
+            else if (_firSide == 0 || _secSide == 0 || _thirdSide == 0)
+                throw new ArgumentOutOfRangeException("Argument can't be null");
             return true;
 
             // can be added more validations..
@@ -55,7 +57,7 @@ namespace AreaCalculator.Figures
         /// Check if triangle is right
         /// </summary>
         /// <returns>True - if right trianlge. False - if not</returns>
-        private bool IsRightTriangle()
+        public bool CheckRightTriangle()
         {
             var hypotenuse = new[] { _firSide, _secSide, _thirdSide }.Max();
             var temp = _firSide * _firSide + _secSide * _secSide + _thirdSide * _thirdSide - hypotenuse * hypotenuse;
