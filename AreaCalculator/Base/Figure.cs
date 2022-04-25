@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AreaCalculator.Base
 {
+    // Вычисление площади фигуры без знания типа фигуры
+    // Не совсем понятно, создать фигуру наподобие многоугольника или уровень абстракции,
+    // чтоб легче было добавлять фигуры?
     public abstract class Figure
     {
         private readonly Lazy<double> _area;
