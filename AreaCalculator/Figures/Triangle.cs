@@ -48,6 +48,9 @@ namespace AreaCalculator.Figures
                 throw new ArgumentOutOfRangeException("Argument can't be negative");
             else if (_firSide == 0 || _secSide == 0 || _thirdSide == 0)
                 throw new ArgumentOutOfRangeException("Argument can't be null");
+            else if (!(_firSide < _secSide + _thirdSide || _secSide < _firSide + _thirdSide || _thirdSide < _firSide + _secSide))
+                throw new ArgumentException("Triangle does not exist");
+
             return true;
 
             // can be added more validations..
